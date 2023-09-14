@@ -35,7 +35,16 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
 
   @Override
   public AvaliacaoFisica get(Long id) {
-    return null;
+
+    if(avaliacaoFisicaRepository.findById(id).isPresent()) {
+          return avaliacaoFisicaRepository.findById(id).get();
+      }
+
+      else {
+          System.out.println("Avaliação não encontrada!");
+      }
+
+      return null;
   }
 
   @Override
@@ -46,11 +55,31 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
 
   @Override
   public AvaliacaoFisica update(Long id, AvaliacaoFisicaUpdateForm formUpdate) {
-    return null;
+
+    if(avaliacaoFisicaRepository.findById(id).isPresent()) {
+          AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaRepository.findById(id).get();
+          avaliacaoFisica.setPeso(formUpdate.getPeso());
+          avaliacaoFisica.setAltura(formUpdate.getAltura());
+
+          return avaliacaoFisicaRepository.save(avaliacaoFisica);
+      }
+
+      else {
+          System.out.println("Avaliação não encontrada!");
+      }
+
+      return null;
   }
 
   @Override
   public void delete(Long id) {
+    if(avaliacaoFisicaRepository.findById(id).isPresent()) {
+          avaliacaoFisicaRepository.deleteById(id);
+      }
+
+      else {
+          System.out.println("Avaliação não encontrada!");
+      }
 
   }
 }

@@ -32,7 +32,11 @@ public class MatriculaServiceImpl implements IMatriculaService {
 
   @Override
   public Matricula get(Long id) {
-    return matriculaRepository.findById(id).get();
+
+    if(matriculaRepository.findById(id).isPresent()) {
+          return matriculaRepository.findById(id).get();
+      }
+      return null;
   }
 
   @Override
@@ -47,7 +51,14 @@ public class MatriculaServiceImpl implements IMatriculaService {
   }
 
   @Override
-  public void delete(Long id) {}
+  public void delete(Long id) {
+    if(matriculaRepository.findById(id).isPresent()) {
+          matriculaRepository.deleteById(id);
+      }
+      else {
+          System.out.println("Matricula não encontrada!");
+      }
+  }
 
 
 

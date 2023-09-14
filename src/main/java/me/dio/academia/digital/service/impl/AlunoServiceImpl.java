@@ -32,7 +32,16 @@ public class AlunoServiceImpl implements IAlunoService {
 
   @Override
   public Aluno get(Long id) {
-    return null;
+
+    if(repository.findById(id).isPresent()) {
+          return repository.findById(id).get();
+      }
+
+      else {
+          System.out.println("Aluno não encontrado!");
+      }
+      return null;
+
   }
 
   @Override
@@ -49,11 +58,34 @@ public class AlunoServiceImpl implements IAlunoService {
 
   @Override
   public Aluno update(Long id, AlunoUpdateForm formUpdate) {
+
+    if(repository.findById(id).isPresent()) {
+          Aluno aluno = repository.findById(id).get();
+          aluno.setNome(formUpdate.getNome());
+          aluno.setCpf(formUpdate.getCpf());
+          aluno.setBairro(formUpdate.getBairro());
+          aluno.setDataDeNascimento(formUpdate.getDataDeNascimento());
+
+          return repository.save(aluno);
+      }
+
+      else {
+          System.out.println("Aluno não encontrado!");
+      }
+
     return null;
   }
 
   @Override
   public void delete(Long id) {
+    if(repository.findById(id).isPresent()) {
+          repository.deleteById(id);
+      }
+
+      else {
+          System.out.println("Aluno não encontrado!");
+      }
+
   }
 
   @Override

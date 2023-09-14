@@ -33,5 +33,11 @@ public class AlunoController {
     return service.getAll(dataDeNacimento);
   }
 
+  @GetMapping("/{id}")
+  public Aluno get(@PathVariable Long id) {
+    return service.get(id);
+  }
+
+
 
 }
